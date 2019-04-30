@@ -20,3 +20,19 @@
 6. after step 5, PUSH using
    
    git push origin master
+
+
+IF file size is larger than 100 mb push will fail 
+now we can not solve issue directly becuase file is persisted after commit
+to resolve the issue
+following steps helped 
+git filter-branch --force --index-filter 'git rm --cached -f --ignore-unmatch python_eg/8_SQL/data/imdb.sql'   --tag-name-filter cat -- --all
+
+ git reflog expire --expire=now --all
+
+ git gc --prune=now
+ 
+ git gc --aggressive --prune=now
+ 
+ 
+ git push --all --force
